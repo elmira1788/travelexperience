@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        transition: 0.33s ease all;
+        font-family: "Open Sans";
+      }
+      body {
+        background-image: linear-gradient(#2af4fb, #546bfd);
+      }
+
+      div.container {
+        display: flex;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+      }
+      .card-img img {
+        width: 100%;
+        height: 350px;
+      }
+      div.card {
+        width: 460px;
+        background-color: white;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.45);
+      }
+      div.card div.card-img-container {
+        overflow: hidden;
+        position: relative;
+        background-color: #262626;
+      }
+      div.card div.card-img {
+        transition: 0.45s ease all;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-position: center;
+        background-size: 150%;
+        height: 460px;
+        width: 460px;
+        padding: 30px;
+        color: white;
+      }
+      div.card div.card-img span {
+        -webkit-font-smoothing: antialiased;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 14px;
+        position: relative;
+      }
+      div.card div.card-img h1 {
+        -webkit-font-smoothing: antialiased;
+        font-family: "bodoni-urw";
+        font-weight: normal;
+        font-size: 36px;
+        margin: 0;
+        position: relative;
+      }
+      div.card div.card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 30px;
+      }
+      div.card div.card-body p {
+        color: #262626;
+        margin: 0 0 20px 0;
+        font-weight: 400;
+        line-height: 24px;
+      }
+      div.card div.card-body p > b {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 15px;
+      }
+      .card-link{
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .card-link button{
+        border: none;
+        outline: none;
+        -webkit-font-smoothing: antialiased;
+        display: block;
+        text-decoration: none;
+        text-transform: uppercase;
+        color: #2d58c4;
+        font-weight: bold;
+        font-size: 15px;
+        background-color: white;
+        cursor: pointer;
+      }
+      div.card div.card-body div.card-link a {
+        -webkit-font-smoothing: antialiased;
+        display: block;
+        text-decoration: none;
+        text-transform: uppercase;
+        color: #2d58c4;
+        font-weight: bold;
+        font-size: 15px;
+      }
+      div.card div.card-body div.card-link a:hover {
+        color: #1a3371;
+      }
+      div.card div.card-body div.card-link button:hover {
+        color: #1a3371;
+      }
+
+      .card-img img:hover {
+        background-size: 175%;
+      }
+      .share {
+        font-size: 30px;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <% let num = 0 %>
+    <a class="share" href="/travel/new">Share Your Experiences</a>
+
+    <section class="travel">
+      <% for (let elem of travel) { %>
+      <div class="container">
+        <div class="card">
+          <div class="card-img-container">
+            <div class="card-img">
+              <img src="<%= elem.image_url %>" alt="" />
+              <h1><%= elem.title %></h1>
+            </div>
+          </div>
+          <div class="card-body">
+            <p>
+              <b><%= elem.location %></b>
+              <%= elem.description %>
+            </p>
+            <div class="card-link">
+              
+              
+              <button onclick=<%= ()=>{num++} %>>Like 👍<%= num %></button>
+              <% if (user_id == elem.user_id){%>
+              <div>
+                <form action="/travel/<%= elem.id %>" method="post">
+                  <input type="hidden" name="_method" value="delete" />
+                  <button>delete</button>
+                </form>
+              </div>
+              <div>
+                <a href="/travel/<%= elem.id %>/edit">edit</a>
+              </div>
+              <% } %>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <% } %>
+    </section>
+  </body>
+</html>
