@@ -33,9 +33,9 @@ app.use(
 )
 app.use(setCurrentUser)
 app.use(viewHelpers)
+app.use(userController)
 app.use(sessionController)
 app.use(travelController)
-app.use(userController)
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
